@@ -68,11 +68,11 @@ while True:
     temperature = convertTempToFreedom(sensor.get_temperature())
 
     highRange = idealTemp + tempBuffer
-    lowRange = idealTemp - tempBuffer
+    lowRange = idealTemp - 1
 
     if temperature > highRange:
         switchCooling(True)
-    elif temperature < idealTemp:
+    elif temperature < lowRange:
         switchCooling(False)
 
     updateScreen()
