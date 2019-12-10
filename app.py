@@ -13,7 +13,7 @@ cooling = False
 tempBuffer = .1
 
 # Connect to DB
-conn = sqlite3.connect('permafrost_db.db')
+conn = sqlite3.connect('/home/pi/Cooler/permafrost_db.db')
 c = conn.cursor()
 
 
@@ -67,8 +67,8 @@ while True:
     # COllect Actual Temp
     temperature = convertTempToFreedom(sensor.get_temperature())
 
-    highRange = idealTemp + tempBuffer
-    lowRange = idealTemp - 1
+    highRange = idealTemp
+    lowRange = idealTemp - .2
 
     if temperature > highRange:
         switchCooling(True)
