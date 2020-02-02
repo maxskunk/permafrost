@@ -9,7 +9,7 @@ import { retry, catchError, tap } from 'rxjs/operators';
 })
 export class TempUpdateService {
 
-  apiURL = 'api';
+  apiURL = 'http://192.168.4.100:2222';
   constructor(public http: HttpClient) {
   }
 
@@ -24,7 +24,7 @@ export class TempUpdateService {
     let params = new HttpParams();
     // params = params.append('key', key);
     // params = params.append('wakeup', wakeup_value);
-    return this.http.get<any>(this.apiURL + '/readTemp/', { params: params }).pipe(
+    return this.http.get<any>(this.apiURL + '/getTemp', { params: params }).pipe(
       tap( // Log the result or error
         data => {
           return data;
