@@ -61,11 +61,18 @@ def readTempSetting():
     return r[1]
 
 
+def setTemp(value):
+    t = (value, 'actual_temp',)
+    c.execute("UPDATE config SET value = ? WHERE key=?", t)
+    conn.commit()
+
+
 while True:
     # Collect Desired Temp
     idealTemp = readTempSetting()
     # COllect Actual Temp
     temperature = convertTempToFreedom(sensor.get_temperature())
+    setTemp(temperature)
 
     highRange = idealTemp
     lowRange = idealTemp - .2

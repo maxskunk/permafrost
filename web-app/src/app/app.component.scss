@@ -2,6 +2,7 @@
   max-width: 600px;
   margin: auto;
   margin-top: 10%;
+  background-image: url("./../assets/ants.svg");
 
 
   /* border-color: blue; */
@@ -17,4 +18,10 @@
   .temp-display {
     font-size: 10em;
   }
+}
+
+h2 {
+  text-align: center;
+  // font-weight: bolder;
+  // -webkit-text-stroke: 1px white;
 }

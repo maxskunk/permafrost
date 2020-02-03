@@ -36,6 +36,22 @@ export class TempUpdateService {
     )
   }
 
+  public getActualTemp(): Observable<any> {
+    let params = new HttpParams();
+    // params = params.append('key', key);
+    // params = params.append('wakeup', wakeup_value);
+    return this.http.get<any>(this.apiURL + '/getActualTemp', { params: params }).pipe(
+      tap( // Log the result or error
+        data => {
+          return data;
+        },
+        error => {
+          return error;
+        }
+      )
+    )
+  }
+
   public setTemp(temp: number): Observable<any> {
     let params = new HttpParams();
     // params = params.append('wakeup', wakeup_value);

@@ -4,6 +4,7 @@
     <mat-card-subtitle>Set Temp</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+    <h2>Current Temp: {{actualTemp | number:'0.1-1'}}</h2>
     <mat-grid-list cols="12" class="temp-control" rowHeight="100px">
       <mat-grid-tile class="temp-display" rowspan="2" colspan="9">
         {{temp | number:'0.1-1'}}

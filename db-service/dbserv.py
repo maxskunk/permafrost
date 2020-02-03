@@ -36,6 +36,21 @@ def getTemp(request):
         })
 
 
+@asyncio.coroutine
+def getActualTemp(request):
+    t = ('actual_temp',)
+    c.execute('SELECT value FROM config WHERE key=?', t)
+    test = str(c.fetchone()[0])
+    return web.Response(text=test)
+    c.close()
+    return web.Response(
+        text=test,
+        headers={
+            "X-Custom-Server-Header": "Custom data",
+            "Access-Control-Allow-Origin": "http://localhost:4200"
+        })
+
+
 def db_connect(db_path=DEFAULT_PATH):
     con = sqlite3.connect(db_path)
     return con
@@ -87,6 +102,16 @@ route = cors.add(
 resource = cors.add(app.router.add_resource("/getTemp"))
 route = cors.add(
     resource.add_route("GET", getTemp), {
+        "*": aiohttp_cors.ResourceOptions(
+            allow_credentials=True,
+            expose_headers=("X-Custom-Server-Header",),
+            allow_headers=("X-Requested-With", "Content-Type"),
+            max_age=3600,
+        )
+    })
+resource = cors.add(app.router.add_resource("/getActualTemp"))
+route = cors.add(
+    resource.add_route("GET", getActualTemp), {
         "*": aiohttp_cors.ResourceOptions(
             allow_credentials=True,
             expose_headers=("X-Custom-Server-Header",),

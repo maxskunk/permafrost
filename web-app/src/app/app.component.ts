@@ -7,7 +7,8 @@ import { TempUpdateService } from './temp-update.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public temp: number = 60;
+  public temp: number = 0;
+  public actualTemp: number = 0;
 
   constructor(private tempService: TempUpdateService) {
 
@@ -16,6 +17,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.tempService.getTemp().subscribe((res: any) => {
       this.temp = Number(res);
+    });
+    this.getActualTemp();
+
+    setInterval(() => {
+      this.getActualTemp();
+    }, 10000);
+  }
+
+  getActualTemp() {
+    this.tempService.getActualTemp().subscribe((res: any) => {
+      this.actualTemp = Number(res);
     });
   }
 
